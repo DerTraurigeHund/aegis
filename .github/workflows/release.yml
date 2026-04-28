@@ -1,0 +1,79 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags like v1.0.0, v2.0.0
+
+jobs:
+  flutter-build:
+    name: Build Flutter APK
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_app
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aegis-release-apk
+          path: flutter_app/build/app/outputs/flutter-apk/app-release.apk
+
+  create-release:
+    name: Create GitHub Release
+    needs: [flutter-build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: aegis-release-apk
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          cat > release-notes.md << 'EOF'
+          ## Aegis ${{ steps.version.outputs.VERSION }}
+
+          ### Änderungen
+          $(git log --oneline --no-decorate $(git tag --sort=-creatordate | head -2 | tail -1)...HEAD 2>/dev/null || echo "Initial release")
+
+          ### Downloads
+          - [Aegis ${{ steps.version.outputs.VERSION }} APK](app-release.apk) – Android Release Build (arm64-v8a + armeabi-v7a + x86_64)
+          EOF
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Aegis v${{ steps.version.outputs.VERSION }}
+          body_path: release-notes.md
+          files: |
+            app-release.apk
+          make_latest: true

@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  server-monitor:
+    build: .
+    container_name: server-monitor
+    ports:
+      - "${PORT:-8070}:8000"
+    volumes:
+      - ./data:/app/data          # SQLite DB persistence
+      - ./logs:/app/logs          # Log files
+      - ./fcm-service-account.json:/app/fcm-service-account.json:ro
+      - /var/run/docker.sock:/var/run/docker.sock  # Docker access
+      - /proc:/hostproc:ro        # For PID checking
+    environment:
+      - PORT=8070
+      - CHECK_INTERVAL_SECONDS=${CHECK_INTERVAL_SECONDS:-30}
+      - FCM_SERVICE_ACCOUNT_PATH=/app/fcm-service-account.json
+    env_file:
+      - .env
+    pid: host                     # See host PIDs
+    privileged: true
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
