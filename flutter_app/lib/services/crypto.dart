@@ -158,8 +158,8 @@ class CryptoService {
       } catch (e2) {
         // Both attempts failed — key mismatch or corrupted payload
         throw Exception(
-          'Entschlüsselung fehlgeschlagen. '
-          'Überprüfe ob der API-Key auf dem Server noch aktuell ist.',
+          'Decryption failed. '
+          'Check that the API key on the server is still current.',
         );
       }
     }

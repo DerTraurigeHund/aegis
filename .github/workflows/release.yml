@@ -62,7 +62,7 @@ jobs:
           cat > release-notes.md << 'EOF'
           ## Aegis ${{ steps.version.outputs.VERSION }}
 
-          ### Änderungen
+          ### Changes
           $(git log --oneline --no-decorate $(git tag --sort=-creatordate | head -2 | tail -1)...HEAD 2>/dev/null || echo "Initial release")
 
           ### Downloads

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +21,7 @@
           </svg>
         </div>
         <h1>Server Monitor</h1>
-        <p class="login-subtitle">Verbindung zum Backend herstellen</p>
+        <p class="login-subtitle">Connect to the backend</p>
         <div class="login-form">
           <div class="input-group">
             <label for="server-url">Server URL</label>
@@ -29,13 +29,13 @@
           </div>
           <div class="input-group">
             <label for="api-key">API-Key</label>
-            <input type="password" id="api-key" placeholder="API-Key eingeben" />
+            <input type="password" id="api-key" placeholder="Enter API Key" />
             <button class="toggle-pw" onclick="toggleApiKey()" type="button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </button>
           </div>
           <button class="btn-primary" onclick="connect()" id="connect-btn">
-            <span class="btn-text">Verbinden</span>
+            <span class="btn-text">Connect</span>
             <span class="btn-loader hidden">
               <svg class="spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M12 2a10 10 0 0 1 10 10"/>
@@ -63,10 +63,10 @@
         </div>
         <div class="topbar-right">
           <span class="status-dot" id="health-dot"></span>
-          <button class="icon-btn" onclick="refreshAll()" title="Aktualisieren">
+          <button class="icon-btn" onclick="refreshAll()" title="Refresh">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 12a10 10 0 0 1 18.07-5.07M22 12a10 10 0 0 1-18.07 5.07"/></svg>
           </button>
-          <button class="icon-btn" onclick="disconnect()" title="Trennen">
+          <button class="icon-btn" onclick="disconnect()" title="Disconnect">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
           </button>
         </div>
@@ -113,9 +113,9 @@
           <!-- Network stats -->
           <div id="network-section" class="hidden" style="margin-top:12px;">
             <div class="stat-row">
-              <span>Gesendet</span><span id="net-sent">-</span>
-              <span>Empfangen</span><span id="net-recv">-</span>
-              <span>Prozesse</span><span id="process-count">-</span>
+              <span>Sent</span><span id="net-sent">-</span>
+              <span>Received</span><span id="net-recv">-</span>
+              <span>Processes</span><span id="process-count">-</span>
             </div>
           </div>
         </section>
@@ -123,10 +123,10 @@
         <!-- Projects -->
         <section id="projects-section">
           <div class="section-header">
-            <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Projekte</h2>
+            <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Projects</h2>
             <div class="section-actions">
               <span class="mini-stats" id="project-summary">0 · 0 · 0</span>
-              <button class="btn-sm" onclick="showAddProject()">+ Hinzufügen</button>
+              <button class="btn-sm" onclick="showAddProject()">+ Add</button>
             </div>
           </div>
           <div id="projects-loading" class="loading-spinner">
@@ -134,8 +134,8 @@
           </div>
           <div id="projects-empty" class="empty-state hidden">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8888AA" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-            <p>Keine Projekte</p>
-            <button class="btn-primary" onclick="showAddProject()">Projekt anlegen</button>
+            <p>No projects</p>
+            <button class="btn-primary" onclick="showAddProject()">Create Project</button>
           </div>
           <div id="projects-error" class="error-card hidden"></div>
           <div id="projects-list"></div>
@@ -161,7 +161,7 @@
         <div id="add-modal" class="modal-overlay hidden" onclick="closeAdd()">
           <div class="modal-content modal-sm" onclick="event.stopPropagation()">
             <div class="modal-header">
-              <h3>Projekt anlegen</h3>
+              <h3>Create Project</h3>
               <button class="icon-btn" onclick="closeAdd()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
@@ -169,10 +169,10 @@
             <form id="add-form" onsubmit="createProject(event)">
               <div class="input-group">
                 <label>Name</label>
-                <input type="text" id="add-name" required placeholder="Mein Projekt" />
+                <input type="text" id="add-name" required placeholder="My Project" />
               </div>
               <div class="input-group">
-                <label>Typ</label>
+                <label>Type</label>
                 <select id="add-type" onchange="toggleProjectType()">
                   <option value="shell">Shell</option>
                   <option value="docker">Docker</option>
@@ -213,7 +213,7 @@
                 </select>
               </div>
               <p id="add-error" class="error-msg hidden"></p>
-              <button type="submit" class="btn-primary" style="width:100%;margin-top:8px;">Erstellen</button>
+              <button type="submit" class="btn-primary" style="width:100%;margin-top:8px;">Create</button>
             </form>
           </div>
         </div>

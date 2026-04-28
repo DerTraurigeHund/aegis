@@ -67,16 +67,16 @@ class _ServerListScreenState extends State<ServerListScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text('Server entfernen?', style: GoogleFonts.inter(fontWeight: FontWeight.w700)),
-        content: Text('${server.name} wird nur aus der App entfernt.', style: GoogleFonts.inter()),
+        title: Text('Remove server?', style: GoogleFonts.inter(fontWeight: FontWeight.w700)),
+        content: Text('${server.name} will only be removed from the app.', style: GoogleFonts.inter()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Abbrechen'),
+            child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text('Entfernen', style: GoogleFonts.inter(color: AppColors.danger, fontWeight: FontWeight.w600)),
+            child: Text('Remove', style: GoogleFonts.inter(color: AppColors.danger, fontWeight: FontWeight.w600)),
           ),
         ],
       ),
@@ -119,7 +119,7 @@ class _ServerListScreenState extends State<ServerListScreen> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${_servers.length} Server · $onlineCount online · $offlineCount offline',
+                            '${_servers.length} Servers · $onlineCount online · $offlineCount offline',
                             style: GoogleFonts.inter(
                               fontSize: 14,
                               color: AppColors.textSecondary,
@@ -407,14 +407,14 @@ class _ServerCard extends StatelessWidget {
                     if (v == 'copy_key') {
                       Clipboard.setData(ClipboardData(text: server.apiKey));
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('API-Key kopiert'), backgroundColor: AppColors.surfaceLighter),
+                        SnackBar(content: Text('API key copied'), backgroundColor: AppColors.surfaceLighter),
                       );
                     }
                   },
                   itemBuilder: (_) => [
-                    const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit_rounded, size: 18), SizedBox(width: 10), Text('Bearbeiten')])),
-                    const PopupMenuItem(value: 'copy_key', child: Row(children: [Icon(Icons.key_rounded, size: 18), SizedBox(width: 10), Text('API-Key kopieren')])),
-                    const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.danger), SizedBox(width: 10), Text('Entfernen', style: TextStyle(color: AppColors.danger))])),
+                    const PopupMenuItem(value: 'edit', child: Row(children: [Icon(Icons.edit_rounded, size: 18), SizedBox(width: 10), Text('Edit')])),
+                    const PopupMenuItem(value: 'copy_key', child: Row(children: [Icon(Icons.key_rounded, size: 18), SizedBox(width: 10), Text('Copy API key')])),
+                    const PopupMenuItem(value: 'delete', child: Row(children: [Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.danger), SizedBox(width: 10), Text('Remove', style: TextStyle(color: AppColors.danger))])),
                   ],
                 ),
               ],
@@ -450,12 +450,12 @@ class _EmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'Keine Server',
+              'No servers',
               style: GoogleFonts.inter(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
             ),
             const SizedBox(height: 8),
             Text(
-              'Füge deinen ersten Server hinzu, um Projekte zu überwachen.',
+              'Add your first server to monitor projects.',
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(fontSize: 15, color: AppColors.textSecondary),
             ),
@@ -463,7 +463,7 @@ class _EmptyState extends StatelessWidget {
             FilledButton.icon(
               onPressed: onAdd,
               icon: const Icon(Icons.add_rounded),
-              label: const Text('Server hinzufügen'),
+              label: const Text('Add server'),
             ),
           ],
         ),

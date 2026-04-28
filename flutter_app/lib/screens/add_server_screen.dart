@@ -80,7 +80,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditing ? 'Server bearbeiten' : 'Server hinzufügen'),
+        title: Text(_isEditing ? 'Edit server' : 'Add server'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -107,10 +107,10 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 controller: _nameController,
                 decoration: const InputDecoration(
                   labelText: 'Name',
-                  hintText: 'z.B. Produktion Alpha',
+                  hintText: 'e.g. Production Alpha',
                   prefixIcon: Icon(Icons.label_rounded),
                 ),
-                validator: (v) => v == null || v.trim().isEmpty ? 'Name erforderlich' : null,
+                validator: (v) => v == null || v.trim().isEmpty ? 'Name required' : null,
               ),
               const SizedBox(height: 16),
 
@@ -123,8 +123,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
                   prefixIcon: Icon(Icons.link_rounded),
                 ),
                 validator: (v) {
-                  if (v == null || v.trim().isEmpty) return 'URL erforderlich';
-                  if (!v.startsWith('http')) return 'Muss mit http:// oder https:// beginnen';
+                  if (v == null || v.trim().isEmpty) return 'URL required';
+                  if (!v.startsWith('http')) return 'Must start with http:// or https://';
                   return null;
                 },
               ),
@@ -134,11 +134,11 @@ class _AddServerScreenState extends State<AddServerScreen> {
               TextFormField(
                 controller: _apiKeyController,
                 decoration: const InputDecoration(
-                  labelText: 'API-Key',
-                  hintText: 'Wird beim ersten Backend-Start generiert',
+                  labelText: 'API key',
+                  hintText: 'Generated on first backend start',
                   prefixIcon: Icon(Icons.key_rounded),
                 ),
-                validator: (v) => v == null || v.trim().isEmpty ? 'API-Key erforderlich' : null,
+                validator: (v) => v == null || v.trim().isEmpty ? 'API key required' : null,
               ),
               const SizedBox(height: 20),
 
@@ -149,7 +149,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                     ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary))
                     : Icon(_testResult == true ? Icons.check_circle_rounded : (_testResult == false ? Icons.cancel_rounded : Icons.wifi_tethering_rounded)),
                 label: Text(
-                  _testing ? 'Teste...' : (_testResult == true ? 'Verbindung OK!' : (_testResult == false ? 'Verbindung fehlgeschlagen' : 'Verbindung testen')),
+                  _testing ? 'Testing...' : (_testResult == true ? 'Connection OK!' : (_testResult == false ? 'Connection failed' : 'Test connection')),
                 ),
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(
@@ -165,7 +165,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 onPressed: _saving ? null : _save,
                 child: _saving
                     ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                    : Text(_isEditing ? 'Speichern' : 'Hinzufügen'),
+                    : Text(_isEditing ? 'Save' : 'Add'),
               ),
             ],
           ),

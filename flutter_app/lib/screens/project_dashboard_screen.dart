@@ -109,15 +109,15 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
                   const SizedBox(height: 12),
                   TextField(controller: cwdCtrl, decoration: const InputDecoration(labelText: 'Working Directory', hintText: '/opt/app', prefixIcon: Icon(Icons.folder_rounded))),
                 ] else ...[
-                  TextField(controller: containerCtrl, decoration: const InputDecoration(labelText: 'Container Name', prefixIcon: Icon(Icons.inventory_2_rounded))),
+                  TextField(controller: containerCtrl, decoration: const InputDecoration(labelText: 'Container name', prefixIcon: Icon(Icons.inventory_2_rounded))),
                   const SizedBox(height: 12),
                   TextField(controller: imageCtrl, decoration: const InputDecoration(labelText: 'Image', hintText: 'redis:7-alpine', prefixIcon: Icon(Icons.layers_rounded))),
                   const SizedBox(height: 12),
-                  TextField(controller: runCmdCtrl, decoration: const InputDecoration(labelText: 'Run Options', hintText: '-p 6379:6379', prefixIcon: Icon(Icons.settings_rounded))),
+                  TextField(controller: runCmdCtrl, decoration: const InputDecoration(labelText: 'Run options', hintText: '-p 6379:6379', prefixIcon: Icon(Icons.settings_rounded))),
                 ],
                 const SizedBox(height: 12),
                 Row(children: [
-                  const Text('Max Restarts: ', style: TextStyle(color: AppColors.textSecondary)),
+                  const Text('Max restarts: ', style: TextStyle(color: AppColors.textSecondary)),
                   const SizedBox(width: 8),
                   DropdownButton<int>(
                     value: maxRestarts,
@@ -145,7 +145,7 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
                       });
                       if (mounted) { Navigator.pop(ctx); _loadProjects(); }
                     } catch (e) {
-                      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fehler: $e')));
+                      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
                     }
                   },
                   child: const Text('Erstellen'),
@@ -164,13 +164,13 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text('Projekt löschen?', style: GoogleFonts.inter(fontWeight: FontWeight.w700)),
-        content: Text('${project.name} wird unwiderruflich gelöscht.'),
+        title: Text('Delete project?', style: GoogleFonts.inter(fontWeight: FontWeight.w700)),
+        content: Text('${project.name} will be permanently deleted.'),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Abbrechen')),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text('Löschen', style: GoogleFonts.inter(color: AppColors.danger, fontWeight: FontWeight.w600)),
+            child: Text('Delete', style: GoogleFonts.inter(color: AppColors.danger, fontWeight: FontWeight.w600)),
           ),
         ],
       ),
@@ -214,7 +214,7 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
               children: [
                 Text('Projekt bearbeiten', style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
                 const SizedBox(height: 4),
-                Text('Typ: ${type.toUpperCase()}', style: GoogleFonts.inter(fontSize: 13, color: AppColors.textSecondary)),
+                Text('Type: ${type.toUpperCase()}', style: GoogleFonts.inter(fontSize: 13, color: AppColors.textSecondary)),
                 const SizedBox(height: 20),
                 TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: 'Name', prefixIcon: Icon(Icons.label_rounded))),
                 const SizedBox(height: 12),
@@ -223,15 +223,15 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
                   const SizedBox(height: 12),
                   TextField(controller: cwdCtrl, decoration: const InputDecoration(labelText: 'Working Directory', hintText: '/opt/app', prefixIcon: Icon(Icons.folder_rounded))),
                 ] else ...[
-                  TextField(controller: containerCtrl, decoration: const InputDecoration(labelText: 'Container Name', prefixIcon: Icon(Icons.inventory_2_rounded))),
+                  TextField(controller: containerCtrl, decoration: const InputDecoration(labelText: 'Container name', prefixIcon: Icon(Icons.inventory_2_rounded))),
                   const SizedBox(height: 12),
                   TextField(controller: imageCtrl, decoration: const InputDecoration(labelText: 'Image', hintText: 'redis:7-alpine', prefixIcon: Icon(Icons.layers_rounded))),
                   const SizedBox(height: 12),
-                  TextField(controller: runCmdCtrl, decoration: const InputDecoration(labelText: 'Run Options', hintText: '-p 6379:6379', prefixIcon: Icon(Icons.settings_rounded))),
+                  TextField(controller: runCmdCtrl, decoration: const InputDecoration(labelText: 'Run options', hintText: '-p 6379:6379', prefixIcon: Icon(Icons.settings_rounded))),
                 ],
                 const SizedBox(height: 12),
                 Row(children: [
-                  const Text('Max Restarts: ', style: TextStyle(color: AppColors.textSecondary)),
+                  const Text('Max restarts: ', style: TextStyle(color: AppColors.textSecondary)),
                   const SizedBox(width: 8),
                   DropdownButton<int>(
                     value: maxRestarts,
@@ -240,7 +240,7 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
                   ),
                 ]),
                 Row(children: [
-                  const Text('Restart Reset (Min): ', style: TextStyle(color: AppColors.textSecondary)),
+                  const Text('Restart reset (min): ', style: TextStyle(color: AppColors.textSecondary)),
                   const SizedBox(width: 8),
                   DropdownButton<int>(
                     value: restartResetMinutes,
@@ -271,7 +271,7 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
                       });
                       if (mounted) { Navigator.pop(ctx); _loadProjects(); }
                     } catch (e) {
-                      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fehler: $e')));
+                      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
                     }
                   },
                   child: const Text('Speichern'),
@@ -330,9 +330,9 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
                       children: [
                         _MiniStat(label: 'Projekte', value: '${_projects.length}', icon: Icons.folder_rounded, color: AppColors.primary),
                         const SizedBox(width: 10),
-                        _MiniStat(label: 'Läuft', value: '$running', icon: Icons.play_circle_rounded, color: AppColors.success),
+                        _MiniStat(label: 'Running', value: '$running', icon: Icons.play_circle_rounded, color: AppColors.success),
                         const SizedBox(width: 10),
-                        _MiniStat(label: 'Crash', value: '$crashed', icon: Icons.error_rounded, color: AppColors.danger),
+                        _MiniStat(label: 'Crashed', value: '$crashed', icon: Icons.error_rounded, color: AppColors.danger),
                       ],
                     ),
                     // ── Server Load Section ──
@@ -364,11 +364,11 @@ class _ProjectDashboardScreenState extends State<ProjectDashboardScreen> {
                         children: [
                           _FilterChip(label: 'Alle', selected: _filterStatus == null, onTap: () => setState(() => _filterStatus = null)),
                           const SizedBox(width: 6),
-                          _FilterChip(label: 'Läuft', selected: _filterStatus == 'running', onTap: () => setState(() => _filterStatus = _filterStatus == 'running' ? null : 'running'), color: AppColors.success),
+                          _FilterChip(label: 'Running', selected: _filterStatus == 'running', onTap: () => setState(() => _filterStatus = _filterStatus == 'running' ? null : 'running'), color: AppColors.success),
                           const SizedBox(width: 6),
-                          _FilterChip(label: 'Gestoppt', selected: _filterStatus == 'stopped', onTap: () => setState(() => _filterStatus = _filterStatus == 'stopped' ? null : 'stopped'), color: AppColors.textSecondary),
+                          _FilterChip(label: 'Stopped', selected: _filterStatus == 'stopped', onTap: () => setState(() => _filterStatus = _filterStatus == 'stopped' ? null : 'stopped'), color: AppColors.textSecondary),
                           const SizedBox(width: 6),
-                          _FilterChip(label: 'Crash', selected: _filterStatus == 'crashed', onTap: () => setState(() => _filterStatus = _filterStatus == 'crashed' ? null : 'crashed'), color: AppColors.danger),
+                          _FilterChip(label: 'Crashed', selected: _filterStatus == 'crashed', onTap: () => setState(() => _filterStatus = _filterStatus == 'crashed' ? null : 'crashed'), color: AppColors.danger),
                         ],
                       ),
                     ),
@@ -626,7 +626,7 @@ class _ProjectCard extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.delete_outline_rounded, color: AppColors.danger),
-              title: const Text('Löschen'),
+              title: const Text('Delete'),
               onTap: () { Navigator.pop(ctx); onDelete(); },
             ),
             const SizedBox(height: 8),
@@ -694,7 +694,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
       _refresh();
       widget.onRefresh();
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fehler: $e')));
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 
@@ -826,7 +826,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                     const SizedBox(width: 8),
                     Text('Session: ${p.currentUptimeFormatted}', style: GoogleFonts.inter(fontSize: 13, color: AppColors.info)),
                     const Spacer(),
-                    Text('Gesamt: ${p.uptimeFormatted}', style: GoogleFonts.inter(fontSize: 13, color: AppColors.textSecondary)),
+                    Text('Total: ${p.uptimeFormatted}', style: GoogleFonts.inter(fontSize: 13, color: AppColors.textSecondary)),
                   ],
                 ),
               ),
@@ -976,7 +976,7 @@ class _LogsTabState extends State<_LogsTab> {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Icon(Icons.article_outlined, size: 48, color: AppColors.textSecondary),
         const SizedBox(height: 12),
-        Text('Keine Logs', style: GoogleFonts.inter(color: AppColors.textSecondary)),
+        Text('No logs', style: GoogleFonts.inter(color: AppColors.textSecondary)),
       ]),
     );
     return Container(
@@ -1030,9 +1030,9 @@ class _EventsTabState extends State<_EventsTab> {
   String _eventLabel(String type) {
     switch (type) {
       case 'start': return 'Gestartet';
-      case 'stop': return 'Gestoppt';
+      case 'stop': return 'Stopped';
       case 'restart': return 'Neustart';
-      case 'crash': return 'Crash';
+      case 'crash': return 'Crashed';
       case 'recovered': return 'Erholt';
       case 'failed_permanent': return 'Dauerhaft fehlgeschlagen';
       default: return type;
@@ -1046,7 +1046,7 @@ class _EventsTabState extends State<_EventsTab> {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Icon(Icons.history_rounded, size: 48, color: AppColors.textSecondary),
         const SizedBox(height: 12),
-        Text('Keine Events', style: GoogleFonts.inter(color: AppColors.textSecondary)),
+        Text('No events', style: GoogleFonts.inter(color: AppColors.textSecondary)),
       ]),
     );
     return ListView.builder(
@@ -1141,7 +1141,7 @@ class _StatsTabState extends State<_StatsTab> {
   Widget build(BuildContext context) {
     if (_loading) return const Center(child: CircularProgressIndicator(color: AppColors.primary));
     if (_stats == null) return Center(
-      child: Text('Stats nicht verfügbar', style: GoogleFonts.inter(color: AppColors.textSecondary)),
+      child: Text('Stats not available', style: GoogleFonts.inter(color: AppColors.textSecondary)),
     );
 
     final data = _stats!;
@@ -1156,9 +1156,9 @@ class _StatsTabState extends State<_StatsTab> {
         // Stats grid
         Row(
           children: [
-            Expanded(child: _StatCard(label: 'Gesamte Uptime', value: _formatDuration(uptime), icon: Icons.access_time_rounded, color: AppColors.info)),
+            Expanded(child: _StatCard(label: 'Total uptime', value: _formatDuration(uptime), icon: Icons.access_time_rounded, color: AppColors.info)),
             const SizedBox(width: 10),
-            Expanded(child: _StatCard(label: 'Aktuelle Session', value: _formatDuration(currentUptime), icon: Icons.timer_rounded, color: AppColors.success)),
+            Expanded(child: _StatCard(label: 'Current session', value: _formatDuration(currentUptime), icon: Icons.timer_rounded, color: AppColors.success)),
           ],
         ),
         const SizedBox(height: 10),
@@ -1226,7 +1226,7 @@ class _SystemLoadSection extends StatelessWidget {
             children: [
               Icon(Icons.monitor_heart_rounded, color: AppColors.primary, size: 18),
               const SizedBox(width: 8),
-              Text('Server-Auslastung',
+              Text('Server load',
                 style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
@@ -1270,7 +1270,7 @@ class _SystemLoadSection extends StatelessWidget {
             children: [
               Icon(Icons.cloud_off_rounded, size: 16, color: AppColors.textSecondary),
               const SizedBox(width: 6),
-              Text('Nicht verfügbar – tippen zum Laden',
+              Text('Not available – tap to load',
                 style: GoogleFonts.inter(fontSize: 12, color: AppColors.textSecondary),
               ),
             ],
@@ -1338,7 +1338,7 @@ class _SystemLoadSection extends StatelessWidget {
             const SizedBox(width: 8),
             Icon(Icons.speed_rounded, size: 13, color: AppColors.textSecondary),
             const SizedBox(width: 4),
-            Text('$procCount Prozesse',
+            Text('$procCount processes',
               style: GoogleFonts.inter(fontSize: 12, color: AppColors.textSecondary),
             ),
           ],

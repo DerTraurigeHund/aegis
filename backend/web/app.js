@@ -51,7 +51,7 @@ async function connect() {
   const key = $('#api-key').value.trim();
 
   if (!url || !key) {
-    showLoginError('URL und API-Key erforderlich');
+    showLoginError('URL and API Key required');
     return;
   }
 
@@ -64,15 +64,15 @@ async function connect() {
   try {
     const res = await fetch(`${url}/health`, { signal: AbortSignal.timeout(5000) });
     const data = await res.json();
-    if (data.status !== 'ok') throw new Error('Server nicht erreichbar');
+    if (data.status !== 'ok') throw new Error('Server unreachable');
 
     // Verify API key
     const projRes = await fetch(`${url}/projects`, {
       headers: { 'X-API-Key': key },
       signal: AbortSignal.timeout(5000),
     });
-    if (projRes.status === 401) throw new Error('Ungültiger API-Key');
-    if (!projRes.ok) throw new Error('Verbindungsfehler');
+    if (projRes.status === 401) throw new Error('Invalid API Key');
+    if (!projRes.ok) throw new Error('Connection error');
 
     state.baseUrl = url;
     state.apiKey = key;
@@ -179,7 +179,7 @@ function statusIcon(status) {
 }
 
 function statusLabel(status) {
-  const map = { running: 'Läuft', stopped: 'Gestoppt', crashed: 'Crash', restarting: 'Restartet...', failed: 'Fehlgeschlagen' };
+  const map = { running: 'Running', stopped: 'Stopped', crashed: 'Crashed', restarting: 'Restarting...', failed: 'Failed' };
   return map[status] || status;
 }
 
@@ -193,7 +193,7 @@ async function fetchStats() {
   try {
     const stats = await apiGet('/system/stats');
     renderStats(stats);
-    $('#stats-timestamp').textContent = new Date().toLocaleTimeString('de-DE');
+    $('#stats-timestamp').textContent = new Date().toLocaleTimeString('en-US');
   } catch (_) {}
 }
 
@@ -238,7 +238,7 @@ function renderStats(s) {
 
   // Uptime
   $('#uptime-value').textContent = formatDuration(s.uptime_seconds);
-  $('#uptime-detail').textContent = `${s.process_count} Prozesse · ${s.hostname}`;
+  $('#uptime-detail').textContent = `${s.process_count} processes · ${s.hostname}`;
 
   // Network
   $('#net-sent').textContent = formatBytes(s.network.bytes_sent);
@@ -264,7 +264,7 @@ async function fetchProjects() {
   } catch (e) {
     $('#projects-loading').classList.add('hidden');
     $('#projects-error').classList.remove('hidden');
-    $('#projects-error').textContent = `Fehler: ${e.message}`;
+    $('#projects-error').textContent = `Error: ${e.message}`;
   }
 }
 
@@ -336,7 +336,7 @@ async function doAction(id, action) {
     await fetchProjects();
     if (state.detailProjectId === id) refreshDetail();
   } catch (e) {
-    alert(`Fehler: ${e.message}`);
+    alert(`Error: ${e.message}`);
   }
 }
 
@@ -432,7 +432,7 @@ async function refreshDetail() {
 
     renderDetail(project, stats, logs, events);
   } catch (e) {
-    $('#detail-body').innerHTML = `<div class="error-card">Fehler: ${e.message}</div>`;
+    $('#detail-body').innerHTML = `<div class="error-card">Error: ${e.message}</div>`;
   }
 }
 
@@ -452,7 +452,7 @@ function renderDetail(project, stats, logs, events) {
       </button>
     </div>
     <div class="detail-tabs">
-      <button class="detail-tab ${state.detailTab === 'stats' ? 'active' : ''}" onclick="switchDetailTab('stats')">Statistiken</button>
+      <button class="detail-tab ${state.detailTab === 'stats' ? 'active' : ''}" onclick="switchDetailTab('stats')">Stats</button>
       <button class="detail-tab ${state.detailTab === 'logs' ? 'active' : ''}" onclick="switchDetailTab('logs')">Logs</button>
       <button class="detail-tab ${state.detailTab === 'events' ? 'active' : ''}" onclick="switchDetailTab('events')">Events</button>
     </div>
@@ -469,7 +469,7 @@ function renderDetail(project, stats, logs, events) {
           <div class="detail-stat-value" style="color:${sc}">${statusLabel(project.status)}</div>
         </div>
         <div class="detail-stat">
-          <div class="detail-stat-label">Gesamte Uptime</div>
+          <div class="detail-stat-label">Total Uptime</div>
           <div class="detail-stat-value">${formatDuration(s.total_uptime_seconds || project.total_uptime_seconds || 0)}</div>
         </div>
         <div class="detail-stat">
@@ -483,10 +483,10 @@ function renderDetail(project, stats, logs, events) {
       </div>
     `;
     if (s.last_crash) {
-      html += `<div class="error-card" style="margin-top:12px;">Letzter Crash: ${formatTime(s.last_crash.timestamp)} — ${esc(s.last_crash.message || '')}</div>`;
+      html += `<div class="error-card" style="margin-top:12px;">Last crash: ${formatTime(s.last_crash.timestamp)} — ${esc(s.last_crash.message || '')}</div>`;
     }
   } else if (tabContent === 'logs') {
-    html += `<div class="log-view">${logs && logs.length ? esc(logs.join('\n')) : 'Keine Logs'}</div>`;
+    html += `<div class="log-view">${logs && logs.length ? esc(logs.join('\n')) : 'No logs'}</div>`;
   } else {
     // Events
     if (events && events.length) {
@@ -506,7 +506,7 @@ function renderDetail(project, stats, logs, events) {
         `;
       }).join('');
     } else {
-      html += '<div class="empty-state"><p>Keine Events</p></div>';
+      html += '<div class="empty-state"><p>No events</p></div>';
     }
   }
 
@@ -515,8 +515,8 @@ function renderDetail(project, stats, logs, events) {
 
 function eventLabel(type) {
   const map = {
-    start: 'Gestartet', stop: 'Gestoppt', restart: 'Neustart',
-    crash: 'Crash', recovered: 'Erholt', failed_permanent: 'Dauerhaft fehlgeschlagen'
+    start: 'Started', stop: 'Stopped', restart: 'Restart',
+    crash: 'Crashed', recovered: 'Recovered', failed_permanent: 'Permanently Failed'
   };
   return map[type] || type;
 }

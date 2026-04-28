@@ -191,8 +191,8 @@ async def _send_failure_push(con, project: dict):
         from firebase_admin import messaging as fcm_messaging
 
         tokens = [r["token"] for r in rows]
-        title = f"⚠️ {project['name']} ausgefallen"
-        body = f"Nach {project['max_restarts']} Versuchen konnte der Dienst nicht gestartet werden."
+        title = f"⚠️ {project['name']} failed"
+        body = f"After {project['max_restarts']} attempts the service could not be started."
 
         for token in tokens:
             try:

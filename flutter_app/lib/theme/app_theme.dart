@@ -135,11 +135,11 @@ IconData statusIcon(String status) {
 
 String statusLabel(String status) {
   switch (status) {
-    case 'running': return 'Läuft';
-    case 'stopped': return 'Gestoppt';
-    case 'crashed': return 'Crash';
-    case 'restarting': return 'Restartet...';
-    case 'failed': return 'Fehlgeschlagen';
+    case 'running': return 'Running';
+    case 'stopped': return 'Stopped';
+    case 'crashed': return 'Crashed';
+    case 'restarting': return 'Restarting...';
+    case 'failed': return 'Failed';
     default: return status;
   }
 }
