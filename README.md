@@ -60,7 +60,7 @@ journalctl -u aegis@8000  # API-Key ablesen
 
 ### Mobile App (Android)
 
-1. [Release-APK herunterladen](https://github.com/LuisDev99/aegis/releases/latest) oder selbst bauen:
+1. [Release-APK herunterladen](https://github.com/DerTraurigeHund/aegis/releases/latest) oder selbst bauen:
 
 ```bash
 cd flutter_app/
@@ -242,4 +242,4 @@ aegis/
 
 ## 📄 Lizenz
 
-MIT © [LuisDev99](https://github.com/LuisDev99)
+MIT © [DerTraurigeHund](https://github.com/DerTraurigeHund)
