@@ -28,6 +28,18 @@ jobs:
       - name: Run tests
         run: flutter test
 
+      - name: Generate keystore for release signing
+        working-directory: flutter_app/android
+        run: |
+          keytool -genkey -v -keystore key.jks -keyalg RSA -keysize 2048 -validity 10000 \
+            -alias aegis -storepass aegis123 -keypass aegis123 -dname "CN=Aegis, OU=Aegis, O=Aegis, L=Berlin, ST=Berlin, C=DE"
+          cat > key.properties << EOF
+          storeFile=key.jks
+          keyAlias=aegis
+          storePassword=aegis123
+          keyPassword=aegis123
+          EOF
+
       - name: Build release APK
         run: flutter build apk --release
 
