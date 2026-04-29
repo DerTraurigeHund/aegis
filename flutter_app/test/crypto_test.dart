@@ -33,7 +33,7 @@ void main() {
       await expectLater(
         () => crypto.decryptPayload(encrypted, 'wrong-key'),
         throwsA(predicate((e) =>
-            e is Exception && e.toString().contains('Entschlüsselung'))),
+            e is Exception && e.toString().contains('Decryption'))),
       );
     });
 
