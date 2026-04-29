@@ -71,11 +71,13 @@ jobs:
       - name: Generate release notes
         id: notes
         run: |
-          cat > release-notes.md << 'EOF'
+          PREV_TAG=$(git tag --sort=-creatordate | head -2 | tail -1)
+          LOG=$(git log --oneline --no-decorate ${PREV_TAG}...HEAD 2>/dev/null || echo "Initial release")
+          cat > release-notes.md << EOF
           ## Aegis ${{ steps.version.outputs.VERSION }}
 
           ### Changes
-          $(git log --oneline --no-decorate $(git tag --sort=-creatordate | head -2 | tail -1)...HEAD 2>/dev/null || echo "Initial release")
+          $LOG
 
           ### Downloads
           - [Aegis ${{ steps.version.outputs.VERSION }} APK](app-release.apk) – Android Release Build (arm64-v8a + armeabi-v7a + x86_64)
